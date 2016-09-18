@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_parametros_sistema}" /></h1>
+
+		<h:form id="parametroSistemaTemplatesEmailForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{parametroSistemaMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+			
+			<!-- TEMPLATE DE ENVIO DE PROTOCOLO DE RETIRADA E DEVOLUCAO DA CADERNETA (PROFESSOR OU COORDENADOR) -->
+			<fieldset>
+				<legend><strong>#{messages.template_email_para_protocolo}</strong></legend>
+				
+				<table>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.descricao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.template_email_para_protocolo_descricao}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.parametros_permitidos}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.parametros_email_protocolo}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.observacao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.observacao_parametro_protocolo}"/>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<component:email templateEmail="#{parametroSistemaMB.parametro.informarProtocoloCaderneta}" readonly="false"/>
+			</fieldset>
+			<br />
+			
+			<!-- TEMPLATE PARA SOLICITAR A DEVOLUCAO DA CADERNETA (PROFESSOR OU COORDENADOR) -->
+			<fieldset>
+				<legend><strong>#{messages.template_email_solicitar_devolucao_caderneta}</strong></legend>
+				
+				<table>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.descricao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.template_email_solicitar_devolucao_caderneta_descricao}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.parametros_permitidos}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.parametros_email_solicitar_caderneta}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.observacao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.observacao_parametro_solicitar_devolucao_caderneta}"/>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<component:email templateEmail="#{parametroSistemaMB.parametro.solicitarDevolucaoCaderneta}" readonly="false"/>
+			</fieldset>
+			<br />
+			
+			<!-- TEMPLATE PARA AVISAR AO COORDENADOR QUE O PROFESSOR EXTRAPOLOU O PRAZO -->
+			<fieldset>
+				<legend><strong>#{messages.template_email_professor_extrapolou_prazo}</strong></legend>
+				
+				<table>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.descricao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.template_email_professor_extrapolou_prazo_descricao}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.parametros_permitidos}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.parametros_email_professor_extrapolou_prazo}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.observacao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.observacao_professor_extrapolou_prazo}"/>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<component:email templateEmail="#{parametroSistemaMB.parametro.informarPrazoExtrapolado}" readonly="false"/>
+			</fieldset>
+			<br />
+			
+			<!-- TEMPLATE PARA AVISAR AO COORDENADOR QUE A CADERNETA JA ESTA DISPONIVEL -->
+			<fieldset>
+				<legend><strong>#{messages.template_email_caderneta_disponivel_coordenador}</strong></legend>
+				
+				<table>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.descricao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.template_email_caderneta_disponivel_coordenador_descricao}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.parametros_permitidos}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.parametros_email_caderneta_disponivel_coordenador}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.observacao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.observacao_caderneta_disponivel_coordenador}"/>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<component:email templateEmail="#{parametroSistemaMB.parametro.informarCoordenadorCadernetaDisponivel}" readonly="false"/>
+			</fieldset>
+			<br />
+			
+			<!-- TEMPLATE PARA AVISAR AO GESTOR OPERACIONAL QUE A CADERNETA JA FOI DEVOLVIDA -->
+			<fieldset>
+				<legend><strong>#{messages.template_email_gestor_operacional}</strong></legend>
+				
+				<table>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.descricao}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.template_email_gestor_operacional_descricao}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.parametros_permitidos}: "/></strong>
+						</td>
+						<td>
+							<h:outputText value="#{messages.parametros_email_gestor_operacional}"/>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<component:email templateEmail="#{parametroSistemaMB.parametro.informarGestorOperacional}" readonly="false"/>
+			</fieldset>
+			<br />
+			
+			<p:panel style="text-align: left; align: left">
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{parametroSistemaMB.salvar}"/>
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{parametroSistemaMB.exibirPaginaInicial}" immediate="true"/>
+			</p:panel>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>

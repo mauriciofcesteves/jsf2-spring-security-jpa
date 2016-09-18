@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	template="/WEB-INF/templates/template.xhtml"
+	>
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_relatorio_jobs}" /></h1>
+
+		<h:form id="relatorioJobsForm">
+		<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{relatorioJobsMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+			<!-- CONSULTAR -->
+			<p:panel>
+				<fieldset>
+					<legend>
+						<strong> #{messages.coordenadores}</strong>
+					</legend>	
+				
+					<table>
+						<tr>
+							<td>
+								<h:panelGroup id="painelFiltroCoordenadores">
+									<p:scrollPanel style="width:350px;height:300px" mode="native"> 
+										<p:dataTable id="listaCoordenadoresTableFiltro" var="coordenador" value="#{relatorioJobsMB.coordenadores}" emptyMessage="#{messages.lista_vazia}">
+											<f:facet name="header">  
+			           							#{messages.coordenadores}
+			       							</f:facet>
+											<p:column headerText="#{messages.selecione}" style="text-align:center;">
+												<f:facet name="header">  
+									                <p:selectBooleanCheckbox value="#{relatorioJobsMB.selecionarTodos}">
+									                	<p:ajax update=":relatorioJobsForm:painelFiltroCoordenadores" listener="#{relatorioJobsMB.selecionarTodos}"/>  
+									                </p:selectBooleanCheckbox>
+									           </f:facet> 
+												<p:selectBooleanCheckbox value="#{relatorioJobsMB.coordenadoresSelecionados[coordenador]}"/>
+											</p:column>
+											<p:column headerText="#{messages.matricula}" filterBy="#{coordenador.matricula}" filterMatchMode="contains">
+												<h:outputText value="#{coordenador.matricula}" />
+											</p:column>
+											<p:column headerText="#{messages.nome}" filterBy="#{coordenador.nome}" filterMatchMode="contains">
+												<h:outputText value="#{coordenador.nome}" />
+											</p:column>
+										</p:dataTable>
+									</p:scrollPanel>
+								</h:panelGroup>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+				<table>
+					<tr>
+						<td>
+							<strong><h:outputText value="#{messages.data_cadastro}: "/></strong>
+							<component:inputData value="#{relatorioJobsMB.dataInicioCadastro}"/>
+						</td>
+						<td>
+							<strong><h:outputText value="#{messages.ate}: " /></strong>
+							<component:inputData value="#{relatorioJobsMB.dataFimCadastro}"/>
+						</td>
+					</tr>
+				</table>
+				
+				
+				<br/>
+				<h:panelGroup id="botoes" style="text-align: left;">
+					<p:commandButton value="#{messages.botao_consultar}" ajax="false" action="#{relatorioJobsMB.download}" update="relatorioJobsForm:dashboardTable"/>
+					<p:commandButton value="#{messages.botao_limpar}" ajax="false" action="#{relatorioJobsMB.inicializar}" update="relatorioJobsForm" immediate="true"/>
+				</h:panelGroup>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

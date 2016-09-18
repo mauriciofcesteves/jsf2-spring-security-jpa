@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente" >
+
+	<table style="font-size: 12px;">
+		<tr>
+			<td>
+				<strong>#{messages.titulo}:</strong>
+			</td>
+			<td>
+				<h:outputText value="#{concluirJobMB.job.titulo}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.descricao}:</strong>
+			</td>
+			<td>
+				<h:outputText value="#{concluirJobMB.job.descricao}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.coordenador}:</strong>
+			</td>
+			<td>
+				<h:outputText value="#{concluirJobMB.job.coordenador.nome}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_prevista}:</strong>
+			</td>
+			<td>
+				<h:outputText value="#{concluirJobMB.job.dataPrevista}" converter="#{localDateConverter}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_conclusao}:</strong>
+			</td>
+			<td>
+				<h:outputText value="#{concluirJobMB.job.dataConclusao}" converter="#{localDateConverter}" />
+			</td>
+		</tr>
+	</table>
+	
+</ui:composition>

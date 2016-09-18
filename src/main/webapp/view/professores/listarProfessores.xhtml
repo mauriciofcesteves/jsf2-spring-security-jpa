@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" >
+
+	<p:dataTable id="listaProfessoresTable" var="linha" value="#{professoresMB.professores}" rows="20"
+		paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}" tableStyleClass="ui-table-columntoggle"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<p:column>
+			<f:facet name="header">  
+                 <p:selectBooleanCheckbox value="#{professoresMB.selecionarTodos}">
+                 	<p:ajax update="listaProfessoresTable, :profForm:botoes" listener="#{professoresMB.selecionarTodos}"/>  
+                 </p:selectBooleanCheckbox>
+            </f:facet> 
+			 <p:selectBooleanCheckbox value="#{professoresMB.professoresSelecionados[linha]}">
+			 	<p:ajax update=":profForm:botoes"/>  
+			 </p:selectBooleanCheckbox>  
+		</p:column>
+
+		<p:column headerText="#{messages.cpf}">
+			<p:commandLink ajax="false" action="#{professoresMB.exibirCamposAlteracao}">
+				<f:setPropertyActionListener value="#{linha}" target="#{professoresMB.professor}" />
+				<h:outputText value="#{linha.cpf}" converter="#{cpfConverter}"/>
+			</p:commandLink>
+		</p:column>
+
+		<p:column headerText="#{messages.cnpj}">
+			<p:commandLink ajax="false" action="#{professoresMB.exibirCamposAlteracao}">
+				<f:setPropertyActionListener value="#{linha}" target="#{professoresMB.professor}" />
+				<h:outputText value="#{linha.cnpj}" converter="#{cnpjConverter}"/>
+			</p:commandLink>
+		</p:column>
+		
+		<p:column headerText="#{messages.nome}" priority="2">
+			<h:outputText value="#{linha.nome}" />
+		</p:column>
+		<p:column headerText="#{messages.seguradora}" priority="2">
+			<h:outputText value="#{linha.seguradora}" />
+		</p:column>
+		<p:column headerText="#{messages.placa}" priority="3">
+			<h:outputText value="#{linha.placa}" />
+		</p:column>
+		<p:column headerText="#{messages.data_vigencia_inicio}" priority="4">
+			<h:outputText value="#{linha.vigenciaInicio}" converter="#{localDateConverter}" />
+		</p:column>
+		<p:column headerText="#{messages.data_vigencia_fim}" priority="4">
+			<h:outputText value="#{linha.vigenciaFim}" converter="#{localDateConverter}" />
+		</p:column>
+		
+	</p:dataTable>
+
+</ui:composition>

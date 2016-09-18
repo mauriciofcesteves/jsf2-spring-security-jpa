@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="value" required="true"/>
+		<composite:attribute name="update" />
+		<composite:attribute name="listener" />
+		<composite:attribute name="selecao"/>
+	
+	</composite:interface>
+	
+	<composite:implementation>
+		<p:dataTable id="listaDisciplinasTable" var="linha" value="#{cc.attrs.value}" rows="10"
+			paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+	
+			<p:column style="width:2%; text-align:center">
+				<f:facet name="header">  
+	                 <p:selectBooleanCheckbox value="#{disciplinasMB.selecionarTodos}">
+	                 	<p:ajax update="#{cc.attrs.update}" listener="#{cc.attrs.selecionarTodos}"/>  
+	                 </p:selectBooleanCheckbox>
+	            </f:facet> 
+				 <p:selectBooleanCheckbox value="#{cc.attrs.selecao[linha]}">
+				 	<p:ajax update="#{cc.attrs.update}"/>  
+				 </p:selectBooleanCheckbox>  
+			</p:column>
+	
+			<p:column headerText="#{messages.codigo}" filterBy="#{linha.codigo}" filterMatchMode="contains">
+				<h:outputText value="#{linha.codigo}" />		
+			</p:column>
+			<p:column headerText="#{messages.nome}" filterBy="#{linha.nome}" filterMatchMode="contains">
+				<h:outputText value="#{linha.nome}" />
+			</p:column>
+			
+		</p:dataTable>
+	</composite:implementation>
+
+</ui:composition>

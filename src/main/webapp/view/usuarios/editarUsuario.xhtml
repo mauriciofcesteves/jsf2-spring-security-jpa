@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	>
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.login} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{manterUsuariosMB.usuario.login}" maxlength="30" size="20" visualize="#{manterUsuariosMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.nome} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{manterUsuariosMB.usuario.nome}" styleClass="up" maxlength="50" size="50"  visualize="#{manterUsuariosMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.perfis} *:</strong>
+			</td>
+			<td>
+				<h:selectOneMenu value="#{manterUsuariosMB.perfil}" converter="#{perfilConverter}">
+					<f:selectItem itemValue="" itemLabel="Selecione"/>
+					<f:selectItems value="#{manterUsuariosMB.perfis}" var="perfil" itemLabel="#{perfil.descricao}" itemValue="#{perfil}"/>
+				</h:selectOneMenu>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.ativado} *:</strong>
+			</td>
+			<td>
+				<p:selectOneRadio value="#{manterUsuariosMB.usuario.ativado}">  
+        			<f:selectItem itemLabel="Sim" itemValue="true" />  
+        			<f:selectItem itemLabel="Não" itemValue="false" />  
+    			</p:selectOneRadio> 
+			</td>
+		</tr>
+	</table>
+	
+</ui:composition>

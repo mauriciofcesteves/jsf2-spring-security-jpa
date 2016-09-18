@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_cursos}" /></h1>
+
+		<h:form id="cursosForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{cursosMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- INSERIR, ALTERAR -->
+			<p:panel rendered="#{cursosMB.operacaoInserir or cursosMB.operacaoAlterar}">
+				<ui:include src="editarCurso.xhtml" />
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{cursosMB.exibirCamposInclusao}"
+					rendered="#{cursosMB.operacaoListar}"/>
+
+				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{cursosMB.salvar}"
+					rendered="#{cursosMB.operacaoInserir}"/>
+
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{cursosMB.salvar}"
+					rendered="#{cursosMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{cursosMB.excluir}"
+					rendered="#{cursosMB.operacaoExcluir}"/>
+					
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{cursosMB.exibirCamposExclusao}"
+					rendered="#{cursosMB.podeExcluir}"/>	
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{cursosMB.inicializar}" immediate="true"
+					rendered="#{cursosMB.operacaoInserir or cursosMB.operacaoAlterar or cursosMB.operacaoExcluir}"/>
+			</h:panelGroup>
+			<br />
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel id="listaCursos" rendered="#{cursosMB.operacaoListar}">
+				<ui:include src="listarCursos.xhtml" />
+			</p:panel>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

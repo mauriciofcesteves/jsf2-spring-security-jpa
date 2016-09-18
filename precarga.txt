@@ -1,0 +1,5 @@
+--70502ff6bb85356055ea52ff0a657afd09a52324a33734ccfb7bdedf05634925 = sistema
+
+insert into perfil(nome, descricao) values ('ROLE_ADMIN', 'ADMINISTRADOR');
+insert into usuario(login, nome, senha, ativado) values ('mauricio', 'Mauricio','70502ff6bb85356055ea52ff0a657afd09a52324a33734ccfb7bdedf05634925', true);
+insert into usuario_perfil(login_usuario, nome_perfil) values ('mauricio','ROLE_ADMIN');

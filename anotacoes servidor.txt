@@ -1,0 +1,37 @@
+Dominio: pos.shservidores19.com.br
+| UserName: posshser
+| PassWord: uvahzta613qt
+
+Tomcat
+
+Endere�o: http://www.pos.shservidores19.com.br:8080/manager/html
+Login: posshser
+Senha: ah2QiqPP8265@@
+
+
+Banco de Dados
+posshser_caderneta
+usuario: posshser_admin
+senha: @dm1n@dm1n#
+
+Email
+noreply@pos.shservidores19.com.br
+Senha: #noreply_estacio#
+
+Incoming Server:	server2.shservidores19.com.br
+IMAP: Port 993
+POP3: Port 995
+Outgoing Server:	server2.shservidores19.com.br
+SMTP: Port 465
+
+
+Non-SSL Settings
+(NOT Recommended)
+Nome de usuário:	noreply@pos.shservidores19.com.br
+Senha:	Use the email account’s password.
+Incoming Server:	mail.pos.shservidores19.com.br
+IMAP: Port 143
+POP3: Port 110
+Outgoing Server:	mail.pos.shservidores19.com.br
+SMTP: Port 587
+Authentication is required for IMAP, POP3, and SMTP.

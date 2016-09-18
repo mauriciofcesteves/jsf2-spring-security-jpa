@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" >
+
+	<p:dataTable id="listaJobsTable" var="linha" value="#{jobMB.jobs}" rows="10"
+		paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<p:column style="width:2%; text-align:center">
+			<f:facet name="header">  
+                 <p:selectBooleanCheckbox value="#{jobMB.selecionarTodos}">
+                 	<p:ajax update="listaJobsTable, :profForm:botoes" listener="#{jobMB.selecionarTodos}"/>  
+                 </p:selectBooleanCheckbox>
+            </f:facet> 
+			 <p:selectBooleanCheckbox value="#{jobMB.jobsSelecionados[linha]}">
+			 	<p:ajax update=":profForm:botoes"/>  
+			 </p:selectBooleanCheckbox>  
+		</p:column>
+
+		<p:column headerText="#{messages.titulo}" filterBy="#{linha.titulo}" filterMatchMode="contains">
+			<h:outputText value="#{linha.titulo}" />
+		</p:column>
+		<p:column headerText="#{messages.descricao}" filterBy="#{linha.descricao}" filterMatchMode="contains">
+			<h:outputText value="#{linha.descricao}" />
+		</p:column>
+		<p:column headerText="#{messages.nome}" filterBy="#{linha.coordenador.nome}" filterMatchMode="contains">
+			<h:outputText value="#{linha.coordenador.nome}" />
+		</p:column>
+		
+	</p:dataTable>
+
+</ui:composition>

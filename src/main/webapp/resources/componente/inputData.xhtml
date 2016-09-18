@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+		<composite:attribute name="value" required="true"/>
+		<composite:attribute name="id"/>
+		<composite:attribute name="styleClass"/>
+		<composite:attribute name="rendered" default="true"/>
+		<composite:attribute name="visualize" default="false"/>
+		<composite:attribute name="event" default="blur"/>
+		<composite:attribute name="update" default="@this"/>
+		<composite:attribute name="listener"/>
+		
+	</composite:interface>
+		
+	<composite:implementation>
+		<p:inputMask id="#{cc.attrs.id}" value="#{cc.attrs.value}" mask="99/99/9999" styleClass="#{cc.attrs.styleClass}" converter="#{localDateConverter}" validator="#{localDateConverter.validarData}" rendered="#{cc.attrs.rendered and not cc.attrs.visualize}">
+			<!-- <p:ajax event="#{cc.attrs.event}" update="#{cc.attrs.update}" listener="#{cc.attrs.listener}" disabled="#{!cc.attrs.listener}"/> -->
+		</p:inputMask>
+		
+		<h:outputText id="#{cc.attrs.id}_text" value="#{cc.attrs.value}" styleClass="#{cc.attrs.styleClass}" rendered="#{cc.attrs.rendered and cc.attrs.visualize}" converter="#{localDateConverter}"/>
+	</composite:implementation>
+	
+</ui:composition>

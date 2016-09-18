@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+
+
+		<h:panelGroup rendered="#{usuarioMB.home}">
+			<h:form>
+				<div style="text-align:center;align:center;margin:10px;padding:10px;" >
+					<div style="width:50%;text-align:center;align:center; float: left;">
+						<h:commandLink action="#{usuarioMB.entrarAplicacaoCaderneta}" style="margin:10px;padding:10px;">
+							<p:graphicImage url="#{resource['images:caderneta.png']}" alt="#{messages.caderneta}" title="#{messages.caderneta}" width="100" height="100"/>
+						</h:commandLink>
+						<br/>
+						<h3>
+							#{messages.entrar}
+						</h3> 
+					</div>
+					<h:panelGroup rendered="false" >
+					<div style="width:50%;text-align:center;align:center;float: right;">
+						<h:commandLink action="#{usuarioMB.entrarAplicacaoJobs}"  style="margin:10px;padding:10px;">
+							<p:graphicImage url="#{resource['images:job.png']}" alt="#{messages.jobs}" title="#{messages.jobs}"  width="100" height="100"/>
+						</h:commandLink>
+						<br/>
+						<h3>
+						#{messages.jobs}
+						</h3>
+					</div> 
+					</h:panelGroup>
+				</div>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" >
+                                                                                       
+	<p:dataTable id="cadernetasCoordenadoresTable" var="caderneta" value="#{relatoriosMB.cadernetas}"  rows="10"
+		paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages.curso}" />
+			</f:facet>
+			<h:outputText value="#{caderneta.curso.codigo} - #{caderneta.curso.nome}" />
+		</p:column>
+
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages.disciplina}" />
+			</f:facet>
+			<h:outputText value="#{caderneta.disciplina.codigo} - #{caderneta.disciplina.nome}" />
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages.turma}" />
+			</f:facet>
+			<h:outputText value="#{caderneta.turma}" />
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages.coordenador}" />
+			</f:facet>
+			<h:outputText value="#{caderneta.coordenador.nome}" />
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages.professor}" />
+			</f:facet>
+			<h:outputText value="#{caderneta.professor.nome}" />
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages.data_prevista_devolucao}" />
+			</f:facet>
+			<h:outputText value="#{caderneta.dataPrevistaDevolucaoCoordenador}" converter="#{localDateConverter}"/>
+		</p:column>
+		
+		<p:column style="text-align:center;">
+			<f:facet name="header" >
+				<h:outputText value="#{messages.situacao}" />
+			</f:facet>
+			<p:graphicImage url="#{resource['images:farol_verde.png']}" alt="#{messages.entrega_prazo}" title="#{messages.entrega_prazo}" rendered="#{caderneta.coordenadorNoPrazo}"/>
+			<p:graphicImage url="#{resource['images:farol_vermelho.png']}" alt="#{messages.entrega_fora_prazo}" title="#{messages.entrega_fora_prazo}" rendered="#{!caderneta.coordenadorNoPrazo}"/>
+		</p:column>
+		
+	</p:dataTable>
+
+</ui:composition>

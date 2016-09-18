@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente">
+	
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.protocolo}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.protocolo}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.curso}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.curso.nome}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.coordenador}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.coordenador.nome}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.professor}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.professor.nome}" visualize="true"/>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+				<strong>#{messages.disciplina}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.disciplina.nome}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.turma}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.turma}"  visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.fim_disciplina}:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{cadernetasMB.caderneta.dataFinalDisciplina}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_prevista_devolucao_coordenador}:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{cadernetasMB.caderneta.dataPrevistaDevolucaoCoordenador}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.protocolo_retirada_coordenador}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.protocoloRetiradaCoordenador}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_retirada_coordenador} *:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{cadernetasMB.caderneta.dataRetiradaCoordenador}"/>
+			</td>
+		</tr>
+	</table>
+	<br/>
+	<fieldset>
+		<legend>
+			#{messages.confirmacao_coordenador}	
+		</legend>
+		<table>
+			<tr>
+				<td>#{messages.login} *:</td>
+				<td><p:inputText value="#{cadernetasMB.loginCoordenador}" maxlength="50" size="30" /></td>
+			</tr>
+			<tr>
+				<td>#{messages.senha} *:</td>
+				<td><p:password value="#{cadernetasMB.senhaCoordenador}" maxlength="50" size="30" /></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+</ui:composition>

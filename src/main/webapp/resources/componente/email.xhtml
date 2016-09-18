@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+		<composite:attribute name="templateEmail" required="true" 
+			type="infraestrutura.model.TemplateEmail" />
+
+		<composite:attribute name="readonly" required="false" default="false" />
+	</composite:interface>
+		
+	<composite:implementation>
+		<h:panelGroup rendered="#{!cc.attrs.readonly}">
+			<h:outputLabel value="#{messages.assunto_email}:" title="#{messages.assunto_email}"/>
+			<p:inputText value="#{cc.attrs.templateEmail.assunto}" maxlength="50" size="50"/>
+			<br/>
+			<br/>
+			<h:outputLabel value="#{messages.corpo_email}:" title="#{messages.corpo_email}"/>
+			<br/>
+			<br/>
+			<p:inputTextarea id="editor" value="#{cc.attrs.templateEmail.corpo}" cols="150" rows="10"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{cc.attrs.readonly}">
+			<h:outputLabel value="#{messages.assunto_email}:" title="#{messages.assunto_email}"/>
+			<h:outputText value="#{cc.attrs.templateEmail.assunto}" />
+			<br/>
+			<br/>
+			<fieldset>
+				<legend><h:outputLabel value="#{messages.corpo_email}:" title="#{messages.corpo_email}"/></legend>
+				<h:outputText id="editorDisabled" value="#{cc.attrs.templateEmail.corpo}" escape="false" />
+			</fieldset>
+		</h:panelGroup>
+	</composite:implementation>
+	
+</ui:composition>

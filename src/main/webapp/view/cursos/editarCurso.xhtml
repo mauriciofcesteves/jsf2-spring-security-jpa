@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	>
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.codigo} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cursosMB.curso.codigo}" styleClass="codigo" maxlength="15" size="15" visualize="#{cursosMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.nome} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cursosMB.curso.nome}" styleClass="up" maxlength="50" size="50"  visualize="#{cursosMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.coordenador} *:</strong>
+			</td>
+			<td>
+				<h:selectOneMenu value="#{cursosMB.curso.coordenador}" converter="#{coordenadorConverter}">
+					<f:selectItem itemValue="" itemLabel="Selecione"/>
+					<f:selectItems value="#{cursosMB.coordenadores}" var="coordenador" itemLabel="#{coordenador.nome}" itemValue="#{coordenador}"/>
+				</h:selectOneMenu>
+			</td>
+		</tr>
+	</table>
+	<br/>
+	<fieldset>
+		<legend>
+			<strong> #{messages.disciplinas} * </strong>
+		</legend>	
+	
+		<table>
+			<tr>
+				<td colspan="2">
+					<h:panelGroup id="painelDisciplinas">
+					<table>
+						<tr>
+							<td valign="top">
+								<p:scrollPanel style="width:350px;height:300px" mode="native"> 
+									<p:dataTable id="listaDisciplinasTable" var="linha" value="#{cursosMB.disciplinas}" emptyMessage="#{messages.lista_vazia}">
+										<f:facet name="header">  
+		           							#{messages.disciplinas}
+		       							</f:facet>
+										<p:column headerText="#{messages.selecione}" style="text-align:center;">
+											<p:selectBooleanCheckbox value="#{cursosMB.disciplinasSelecionadas[linha]}"/>
+										</p:column>
+										<p:column headerText="#{messages.codigo}" filterBy="#{linha.codigo}" filterMatchMode="contains">
+											<h:outputText value="#{linha.codigo}" />
+										</p:column>
+										<p:column headerText="#{messages.nome}" filterBy="#{linha.nome}" filterMatchMode="contains">
+											<h:outputText value="#{linha.nome}" />
+										</p:column>
+									</p:dataTable>
+								</p:scrollPanel>
+							</td>
+							<td valign="top">
+								<p:commandButton value="Adicionar" ajax="true" action="#{cursosMB.adicionarDisciplina}" update="painelDisciplinas"/>
+								<p:commandButton value="Remover" ajax="true" action="#{cursosMB.removerDisciplina}"  update="painelDisciplinas"/>
+							</td>
+							<td valign="top">
+								<p:scrollPanel style="width:350px;height:300px" mode="native"> 
+									<p:dataTable id="listaDisciplinasTable2" var="linha" value="#{cursosMB.curso.disciplinas}" emptyMessage="#{messages.lista_vazia}">
+										<f:facet name="header">  
+		          							#{messages.disciplinas_selecionadas}
+		      							</f:facet>
+										<p:column headerText="#{messages.selecione}" style="text-align:center;">
+											<p:selectBooleanCheckbox value="#{cursosMB.disciplinasSelecionadasParaRemover[linha]}"/>
+										</p:column>
+										<p:column headerText="#{messages.codigo}" filterBy="#{linha.codigo}" filterMatchMode="contains">
+											<h:outputText value="#{linha.codigo}" />
+										</p:column>
+										<p:column headerText="#{messages.nome}" filterBy="#{linha.nome}" filterMatchMode="contains">
+											<h:outputText value="#{linha.nome}" />
+										</p:column>
+									</p:dataTable>
+								</p:scrollPanel>
+							</td>
+					</tr>
+					</table>
+					</h:panelGroup>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	
+</ui:composition>

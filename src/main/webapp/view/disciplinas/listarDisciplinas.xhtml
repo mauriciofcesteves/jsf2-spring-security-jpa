@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" >
+
+	<p:dataTable id="listaDisciplinasTable" var="linha" value="#{disciplinasMB.disciplinas}" rows="10"
+		paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<p:column style="width:2%; text-align:center">
+			<f:facet name="header">  
+                 <p:selectBooleanCheckbox value="#{disciplinasMB.selecionarTodos}">
+                 	<p:ajax update="listaDisciplinasTable, :disciplinasForm:botoes" listener="#{disciplinasMB.selecionarTodos}"/>  
+                 </p:selectBooleanCheckbox>
+            </f:facet> 
+			 <p:selectBooleanCheckbox value="#{disciplinasMB.disciplinasSelecionadas[linha]}">
+			 	<p:ajax update=":disciplinasForm:botoes"/>  
+			 </p:selectBooleanCheckbox>  
+		</p:column>
+
+		<p:column headerText="#{messages.codigo}" filterBy="#{linha.codigo}" filterMatchMode="contains">
+			<p:commandLink ajax="false" action="#{disciplinasMB.exibirCamposAlteracao}">
+				<f:setPropertyActionListener value="#{linha}" target="#{disciplinasMB.disciplina}" />
+				<h:outputText value="#{linha.codigo}" />		
+			</p:commandLink>
+		</p:column>
+		<p:column headerText="#{messages.nome}" filterBy="#{linha.nome}" filterMatchMode="contains">
+			<h:outputText value="#{linha.nome}" />
+		</p:column>
+		
+	</p:dataTable>
+
+</ui:composition>

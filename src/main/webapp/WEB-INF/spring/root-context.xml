@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- CONFIGURACAO DO BATCH -->
+    <task:scheduler id="taskScheduler" pool-size="1"/>
+    <task:annotation-driven scheduler="taskScheduler"/>
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="infraestrutura, org.springframework.security" />
+	<import resource="db.xml" />
+
+	<!-- SPRING SECURITY -->
+	<security:http auto-config="true" use-expressions="true">
+	    <security:form-login login-page="/home.jsf" default-target-url="/view/home.jsf" authentication-failure-url="/home.jsf?error=invalido" />
+	    <security:logout logout-success-url="/home.jsf" />
+		<security:intercept-url pattern="/view/login/**" access="isAuthenticated()" />
+	</security:http>
+	
+	<security:global-method-security secured-annotations="enabled" />
+
+	<beans:bean id="autenticador" autowire="byType" class="infraestrutura.bean.infra.ProvedorAutenticacao"/>
+
+	<security:authentication-manager>
+		<security:authentication-provider ref="autenticador"/>
+		<!--		
+		<security:authentication-provider>
+			<security:password-encoder hash="sha-256" />
+			<security:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT login, senha, ativado FROM usuario WHERE login=?"
+				authorities-by-username-query="SELECT login_usuario, nome_perfil FROM usuario_perfil WHERE login_usuario=?" />
+		</security:authentication-provider>
+		-->
+	</security:authentication-manager>
+
+	<!-- LOCALHOST -->
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+		<beans:property name="url" value="jdbc:postgresql://localhost:5433/seguros" />
+		<beans:property name="driverClassName" value="org.postgresql.Driver" />
+		<beans:property name="username" value="postgres" />
+		<beans:property name="password" value="admin" />
+	</beans:bean>
+	
+	<!--
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:comp/env/jdbc/BancoDados"/>
+	</bean>
+	-->
+</beans>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_parametros_sistema}" /></h1>
+
+		<h:form id="parametroSistemaEmailForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{parametroSistemaMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+			
+			<fieldset>
+				<legend>#{messages.email}</legend>
+				<table>
+					<tr>
+						<td>
+							#{messages.smtp} *:
+						</td>
+						<td>
+							<p:inputText value="#{parametroSistemaMB.parametro.smtp}" maxlength="50" size="50"/>
+						</td>
+						<td>
+							#{messages.smtp_porta} *:
+						</td>
+						<td>
+							<p:inputText value="#{parametroSistemaMB.parametro.portaSmtp}" styleClass="numeral" maxlength="5" size="5"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							#{messages.protocolo}:
+						</td>
+						<td>
+							<h:selectOneMenu value="#{parametroSistemaMB.parametro.protocolo}">
+								<f:selectItems value="#{parametroSistemaMB.protocolos}" />
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td> #{messages.email} *: </td>
+						<td>
+							<p:inputText value="#{parametroSistemaMB.parametro.email}" maxlength="50" size="50"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							#{messages.senha} *:
+						</td>
+						<td>
+							<p:password value="#{parametroSistemaMB.parametro.senha}" maxlength="50" size="30"/>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			
+			<br />
+			
+			<p:panel style="text-align: left; align: left">
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{parametroSistemaMB.salvar}"/>
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{parametroSistemaMB.exibirPaginaInicial}" immediate="true"/>
+				<p:commandButton value="#{messages.testar_configuracao_email}" ajax="false" action="#{parametroSistemaMB.testarConfiguracao}" immediate="true"/>
+			</p:panel>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>

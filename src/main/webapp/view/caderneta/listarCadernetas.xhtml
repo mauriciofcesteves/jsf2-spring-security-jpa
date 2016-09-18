@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" >
+                                                                                       
+	<p:dataTable id="listaCadernetasTable" var="caderneta" value="#{cadernetasMB.cadernetas}"  rows="10"
+		paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<p:column style="width:2%; text-align:center" rendered="#{cadernetasMB.operacaoCadastrar}">
+			<f:facet name="header">  
+                 <p:selectBooleanCheckbox value="#{cadernetasMB.selecionarTodos}">
+                 	<p:ajax update="listaCadernetasTable, :cadernetasForm:botoes" listener="#{cadernetasMB.selecionarTodos}"/>  
+                 </p:selectBooleanCheckbox>
+            </f:facet> 
+			 <p:selectBooleanCheckbox value="#{cadernetasMB.cadernetasSelecionadas[caderneta]}" disabled="#{!caderneta.cadernetaComProfessor}">
+			 	<p:ajax update=":cadernetasForm:botoes"/>  
+			 </p:selectBooleanCheckbox>  
+		</p:column>
+		
+		<p:column headerText="#{messages.protocolo}" filterBy="#{caderneta.protocolo}" filterMatchMode="contains">
+			<p:commandLink ajax="false" action="#{cadernetasMB.exibirCamposAlteracao}">
+				<f:setPropertyActionListener value="#{caderneta}" target="#{cadernetasMB.caderneta}" />
+				<h:outputText value="#{caderneta.protocolo}" />
+			</p:commandLink>	
+		</p:column>
+		
+		<p:column headerText="#{messages.curso}" filterBy="#{caderneta.curso.nome}" filterMatchMode="contains">
+			<h:outputText value="#{caderneta.curso.nome}" />
+		</p:column>
+		
+		<p:column headerText="#{messages.disciplina}" filterBy="#{caderneta.disciplina.nome}" filterMatchMode="contains">
+			<h:outputText value="#{caderneta.disciplina.nome}" />
+		</p:column>
+		
+		<p:column headerText="#{messages.turma}" filterBy="#{caderneta.turma}" filterMatchMode="contains">
+			<h:outputText value="#{caderneta.turma}" />
+		</p:column>
+		
+		<p:column headerText="#{messages.situacao}" filterBy="#{caderneta.situacao.nome}" filterMatchMode="contains">
+			<h:outputText value="#{caderneta.situacao}" converter="#{situacaoCadernetaConverter}"/>
+		</p:column>
+		
+	</p:dataTable>
+
+</ui:composition>

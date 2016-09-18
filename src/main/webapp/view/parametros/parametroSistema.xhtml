@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_parametros_sistema}" /></h1>
+
+		<h:form id="parametroSistemaForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{parametroSistemaMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+			
+			<h:panelGroup rendered="#{parametroSistemaMB.operacaoInserir}">
+			<fieldset>
+				<legend>#{messages.prazos}</legend>
+				<table>
+					<tr>
+						<td>
+							#{messages.prazo_professor} *:
+						</td>
+						<td>
+							<p:inputText value="#{parametroSistemaMB.parametro.prazoProfessor}" styleClass="numeral" maxlength="2" size="5"/>
+						</td>
+					</tr>	
+					<tr>	
+						<td>
+							#{messages.prazo_coordenador} *:
+						</td>
+						<td>
+							<p:inputText value="#{parametroSistemaMB.parametro.prazoCoordenador}" styleClass="numeral" maxlength="2" size="5"/>
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							#{messages.intervalo_envio_email} *:
+						</td>
+						<td>
+							<p:inputText value="#{parametroSistemaMB.parametro.intervaloDiasParaEnvioEmail}" styleClass="numeral" maxlength="2" size="5"/>
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							#{messages.email_gop} *:
+						</td>
+						<td>
+							<component:inputText value="#{parametroSistemaMB.parametro.emailGOP}" maxlength="100" size="50"/>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			</h:panelGroup>
+			
+			<br/>
+			
+			<p:panel style="text-align: left; align: left">
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{parametroSistemaMB.salvar}"/>
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{parametroSistemaMB.exibirPaginaInicial}" immediate="true"/>
+			</p:panel>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>

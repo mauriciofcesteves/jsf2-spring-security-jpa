@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_job}" /></h1>
+
+		<h:form id="profForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{jobMB.totalMensagens > 0}">
+				<ui:include src="../../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- INSERIR, ALTERAR -->
+			<p:panel rendered="#{jobMB.operacaoInserir or jobMB.operacaoAlterar}">
+				<ui:include src="editarJob.xhtml" />
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{jobMB.exibirCamposInclusao}"
+					rendered="#{jobMB.operacaoListar}"/>
+
+				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{jobMB.salvar}"
+					rendered="#{jobMB.operacaoInserir}" />
+
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{jobMB.salvar}"
+					rendered="#{jobMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{jobMB.excluir}"
+					rendered="#{jobMB.operacaoExcluir}"/>
+					
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{jobMB.exibirCamposExclusao}"
+					rendered="#{jobMB.podeExcluir}"/>	
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{jobMB.inicializar}" immediate="true"
+					rendered="#{jobMB.operacaoInserir or jobMB.operacaoAlterar or jobMB.operacaoExcluir}"/>
+			</h:panelGroup>
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel rendered="#{jobMB.operacaoListar}">
+				<ui:include src="listarJob.xhtml" />
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

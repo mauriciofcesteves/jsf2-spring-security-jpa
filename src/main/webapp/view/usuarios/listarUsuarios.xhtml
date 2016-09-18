@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" >
+
+	<p:dataTable id="listaUsuariosTable" var="usuario" value="#{manterUsuariosMB.usuarios}" rows="10"
+		paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<p:column style="width:2%; text-align:center">
+			<f:facet name="header">  
+                 <p:selectBooleanCheckbox value="#{manterUsuariosMB.selecionarTodos}">
+                 	<p:ajax update="listaUsuariosTable, :usuariosForm:botoes" listener="#{manterUsuariosMB.selecionarTodos}"/>  
+                 </p:selectBooleanCheckbox>
+            </f:facet> 
+			 <p:selectBooleanCheckbox value="#{manterUsuariosMB.usuariosSelecionados[usuario]}">
+			 	<p:ajax update=":usuariosForm:botoes"/>  
+			 </p:selectBooleanCheckbox>  
+		</p:column>
+
+		<p:column headerText="#{messages.login}" filterBy="#{usuario.login}" filterMatchMode="contains">
+			<p:commandLink ajax="false" action="#{manterUsuariosMB.exibirCamposAlteracao}">
+				<f:setPropertyActionListener value="#{usuario}" target="#{manterUsuariosMB.usuario}" />
+				<h:outputText value="#{usuario.login}" />
+			</p:commandLink>
+		</p:column>
+		<p:column headerText="#{messages.nome}" filterBy="#{usuario.nome}" filterMatchMode="contains">
+			<h:outputText value="#{usuario.nome}" />
+		</p:column>
+		<p:column headerText="#{messages.ativado}" style="text-align:center;">
+			<h:outputText value="#{usuario.ativado}" converter="#{booleanConverter}" />
+		</p:column>
+		
+	</p:dataTable>
+
+</ui:composition>

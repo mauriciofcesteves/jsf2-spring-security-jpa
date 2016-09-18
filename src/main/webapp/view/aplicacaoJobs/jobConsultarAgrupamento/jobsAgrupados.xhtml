@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_job}" /></h1>
+
+		<h:form id="jobsAgrupadosForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{jobsAgrupadosMB.totalMensagens > 0}">
+				<ui:include src="../../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+			<fieldset>
+				<legend>
+					<strong> #{messages.coordenadores}</strong>
+				</legend>	
+			
+				<table>
+					<tr>
+						<td>
+							<h:panelGroup id="painelFiltroCoordenadoresJobsAgrupados">
+								<p:scrollPanel style="width:350px;height:300px" mode="native"> 
+									<p:dataTable id="listaCoordenadoresTableFiltroJobsAgrupados" var="coordenador" value="#{jobsAgrupadosMB.coordenadores}" emptyMessage="#{messages.lista_vazia}">
+										<f:facet name="header">  
+		           							#{messages.coordenadores}
+		       							</f:facet>
+										<p:column headerText="#{messages.selecione}" style="text-align:center;">
+											<f:facet name="header">  
+								                <p:selectBooleanCheckbox value="#{jobsAgrupadosMB.selecionarTodos}">
+								                	<p:ajax update=":jobsAgrupadosForm:painelFiltroCoordenadoresJobsAgrupados" listener="#{jobsAgrupadosMB.selecionarTodos}"/>  
+								                </p:selectBooleanCheckbox>
+								           </f:facet> 
+											<p:selectBooleanCheckbox value="#{jobsAgrupadosMB.coordenadoresSelecionados[coordenador]}"/>
+										</p:column>
+										<p:column headerText="#{messages.matricula}" filterBy="#{coordenador.matricula}" filterMatchMode="contains">
+											<h:outputText value="#{coordenador.matricula}" />
+										</p:column>
+										<p:column headerText="#{messages.nome}" filterBy="#{coordenador.nome}" filterMatchMode="contains">
+											<h:outputText value="#{coordenador.nome}" />
+										</p:column>
+									</p:dataTable>
+								</p:scrollPanel>
+							</h:panelGroup>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			<table>
+				<tr>
+					<td>
+						<strong><h:outputText value="#{messages.situacao}" /></strong>
+					</td>
+					<td>
+						<h:selectOneMenu id="situacaoFarol" value="#{jobsAgrupadosMB.situacao}" >
+							<f:selectItem itemValue="0" itemLabel="TODOS" />
+							<f:selectItem itemValue="1" itemLabel="VERDE" />
+							<f:selectItem itemValue="2" itemLabel="AMARELO" />
+							<f:selectItem itemValue="3" itemLabel="VERMELHO" />
+						</h:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong><h:outputText value="#{messages.data_cadastro}" /></strong>
+					</td>
+					<td>
+						<component:inputData id="inicioCadastro" value="#{jobsAgrupadosMB.dataInicioCadastro}"/>
+					</td>
+					<td>
+						<strong><h:outputText value="#{messages.ate}" /></strong>
+					</td>
+					<td>
+						<component:inputData id="fimCadastro" value="#{jobsAgrupadosMB.dataFimCadastro}"/>
+					</td>
+				</tr>
+			</table>
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_consultar}" ajax="false" action="#{jobsAgrupadosMB.listarJobsAgrupados}" />
+
+				<p:commandButton value="#{messages.botao_limpar}" ajax="true" action="#{jobsAgrupadosMB.limpar}"
+					update="painelFiltroCoordenadoresJobsAgrupados, situacaoFarol, inicioCadastro, fimCadastro"/>
+			</h:panelGroup>
+			<br />
+			<br />
+			<br />
+
+			<p:dataGrid var="linha" value="#{jobsAgrupadosMB.jobs}" columns="1" emptyMessage="#{messages.lista_vazia}" >
+				<p:panel header="#{linha.nomeCoordenador}" style="text-align:center">
+					<p:dataTable var="dto" value="#{linha.jobs}" emptyMessage="#{messages.lista_vazia}" >
+			            <p:column>
+				            <f:facet name="header">
+				              #{messages.titulo} 
+				            </f:facet>
+			                <h:outputText value="#{dto.job.titulo}" />
+			            </p:column>
+
+			            <p:column>
+				            <f:facet name="header">
+				              #{messages.data_cadastro} 
+				            </f:facet>
+			                <h:outputText value="#{dto.job.dataCadastro}" converter="#{localDateConverter}" />
+			            </p:column>
+
+			            <p:column>
+				            <f:facet name="header">
+				              #{messages.data_prevista} 
+				            </f:facet>
+			                <h:outputText value="#{dto.job.dataPrevista}" converter="#{localDateConverter}" />
+			            </p:column>
+
+			            <p:column>
+				            <f:facet name="header">
+				              #{messages.data_conclusao} 
+				            </f:facet>
+			                <h:outputText value="#{dto.job.dataConclusao}" converter="#{localDateConverter}" />
+			            </p:column>
+				
+			            <p:column>
+				            <f:facet name="header">
+				              #{messages.entregou_mas_atrasou} 
+				            </f:facet>
+			                <h:outputText value="#{dto.qtdDiasAtrasou}" />
+			            </p:column>
+				
+			            <p:column>
+				            <f:facet name="header">
+				              #{messages.esta_atrasado} 
+				            </f:facet>
+			                <h:outputText value="#{dto.qtdDiasAtrasados}" />
+			            </p:column>
+		
+						<p:column style="text-align:center;">
+							<f:facet name="header" >
+								<h:outputText value="#{messages.situacao}" />
+							</f:facet>
+							<p:graphicImage url="#{resource['images:farol_verde.png']}" alt="#{messages.entrega_prazo}" title="#{messages.entrega_prazo}" rendered="#{dto.estaNoPrazo}"/>
+							<p:graphicImage url="#{resource['images:farol_amarelo.png']}" alt="#{messages.entregou_mas_atrasou}" title="#{messages.entregou_mas_atrasou}" rendered="#{dto.entregouMasAtrasou}"/>
+							<p:graphicImage url="#{resource['images:farol_vermelho.png']}" alt="#{messages.entrega_fora_prazo}" title="#{messages.entrega_fora_prazo}" rendered="#{dto.atrasadoNaoEntregou}"/>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</p:dataGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

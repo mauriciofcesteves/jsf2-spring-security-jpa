@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jobs" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="169"/>
+	<parameter name="TITULO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="coordenador" class="java.lang.String">
+		<fieldDescription><![CDATA[coordenador]]></fieldDescription>
+	</field>
+	<field name="image" class="java.awt.image.BufferedImage">
+		<fieldDescription><![CDATA[image]]></fieldDescription>
+	</field>
+	<field name="percentualConcluido" class="java.lang.Double">
+		<fieldDescription><![CDATA[percentualConcluido]]></fieldDescription>
+	</field>
+	<field name="percentualConcluidoComAtraso" class="java.lang.Double">
+		<fieldDescription><![CDATA[percentualConcluidoComAtraso]]></fieldDescription>
+	</field>
+	<field name="percentualNaoConcluido" class="java.lang.Double">
+		<fieldDescription><![CDATA[percentualNaoConcluido]]></fieldDescription>
+	</field>
+	<field name="qtdeJobs" class="java.lang.Integer">
+		<fieldDescription><![CDATA[qtdeJobs]]></fieldDescription>
+	</field>
+	<field name="qtdeJobsConcluidos" class="java.lang.Integer">
+		<fieldDescription><![CDATA[qtdeJobsConcluidos]]></fieldDescription>
+	</field>
+	<field name="qtdeJobsConcluidosComAtraso" class="java.lang.Integer">
+		<fieldDescription><![CDATA[qtdeJobsConcluidosComAtraso]]></fieldDescription>
+	</field>
+	<field name="qtdeJobsNaoConcluidos" class="java.lang.Integer">
+		<fieldDescription><![CDATA[qtdeJobsNaoConcluidos]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="86" backcolor="#003366"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="36" y="23" width="291" height="41" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="34" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JOBS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="149" height="35" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COORDENADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="150" y="0" width="405" height="35" backcolor="#CCFFFF"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRÁFICO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="149" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="10" width="149" height="139"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{coordenador}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" vAlign="Middle">
+				<reportElement x="150" y="10" width="405" height="139"/>
+				<imageExpression class="java.awt.Image"><![CDATA[$F{image}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="0" y="3" width="192" height="25"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="3" width="80" height="25"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="510" y="3" width="45" height="25"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

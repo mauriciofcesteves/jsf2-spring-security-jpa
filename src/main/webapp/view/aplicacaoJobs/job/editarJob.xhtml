@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	>
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.titulo} *:</strong>
+			</td>
+			<td>
+				<p:inputText value="#{jobMB.job.titulo}" styleClass="up" maxlength="40" size="50" rendered="#{!jobMB.operacaoExcluir}"/>
+				<h:outputText value="#{jobMB.job.titulo}" rendered="#{jobMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.descricao} *:</strong>
+			</td>
+			<td>
+				<p:inputTextarea value="#{jobMB.job.descricao}" styleClass="up" maxlength="500" cols="60" rows="5" rendered="#{!jobMB.operacaoExcluir}"/>
+				<h:outputText value="#{jobMB.job.descricao}" rendered="#{jobMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_prevista} *:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{jobMB.job.dataPrevista}"  rendered="#{!jobMB.operacaoExcluir}"/>
+				<h:outputText value="#{jobMB.job.dataPrevista}" rendered="#{jobMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+	</table>
+	<br/>
+	<fieldset>
+		<legend>
+			<strong>#{messages.coordenadores} *:</strong>
+		</legend>	
+	
+		<table>
+			<tr>
+				<td colspan="2">
+					<h:panelGroup id="painelCoordenadores">
+					<table>
+						<tr>
+							<td valign="top">
+								<p:scrollPanel style="width:350px;height:300px" mode="native"> 
+									<p:dataTable id="listaCoordenadoresTable" var="linha" value="#{jobMB.coordenadores}" emptyMessage="#{messages.lista_vazia}">
+										<f:facet name="header">  
+		           							#{messages.coordenadores}
+		       							</f:facet>
+										<p:column headerText="#{messages.selecione}" style="text-align:center;">
+											<p:selectBooleanCheckbox value="#{jobMB.coordenadoresSelecionados[linha]}"/>
+										</p:column>
+										<p:column headerText="#{messages.matricula}" >
+											<h:outputText value="#{linha.matricula}" />
+										</p:column>
+										<p:column headerText="#{messages.nome}" >
+											<h:outputText value="#{linha.nome}" />
+										</p:column>
+									</p:dataTable>
+								</p:scrollPanel>
+							</td>
+							<td valign="top">
+								<p:commandButton value="Adicionar" ajax="true" action="#{jobMB.adicionarCoordenadores}" update="painelCoordenadores"/>
+								<p:commandButton value="Remover" ajax="true" action="#{jobMB.removerCoordenadores}"  update="painelCoordenadores"/>
+							</td>
+							<td valign="top">
+								<p:scrollPanel style="width:350px;height:300px" mode="native"> 
+									<p:dataTable id="listaCoordenadoresTable2" var="linha" value="#{jobMB.coordenadoresParaGravar}" emptyMessage="#{messages.lista_vazia}">
+										<f:facet name="header">  
+		          							#{messages.coordenadores_selecionados}
+		      							</f:facet>
+										<p:column headerText="#{messages.selecione}" style="text-align:center;">
+											<p:selectBooleanCheckbox value="#{jobMB.coordenadoresSelecionadosParaRemover[linha]}"/>
+										</p:column>
+										<p:column headerText="#{messages.matricula}" >
+											<h:outputText value="#{linha.matricula}" />
+										</p:column>
+										<p:column headerText="#{messages.nome}" >
+											<h:outputText value="#{linha.nome}" />
+										</p:column>
+									</p:dataTable>
+								</p:scrollPanel>
+							</td>
+					</tr>
+					</table>
+					</h:panelGroup>
+				</td>
+			</tr>
+		</table>
+	</fieldset>	
+</ui:composition>

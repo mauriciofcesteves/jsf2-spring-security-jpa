@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" >
+
+	<p:dataTable id="listaJobsTable" var="linha" value="#{concluirJobMB.jobs}" rows="10"
+		paginator="true" rowsPerPageTemplate="5,10,15" emptyMessage="#{messages.lista_vazia}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<p:column headerText="#{messages.titulo}" filterBy="#{linha.titulo}" filterMatchMode="contains">
+			<p:commandLink ajax="false" action="#{concluirJobMB.exibirCamposAlteracao}" rendered="#{linha.permitidoAlterar}">
+				<f:setPropertyActionListener value="#{linha}" target="#{concluirJobMB.job}" />
+				<h:outputText value="#{linha.titulo}" />
+			</p:commandLink>
+
+			<h:outputText value="#{linha.titulo}" rendered="#{!linha.permitidoAlterar}"/>
+		</p:column>
+		<p:column headerText="#{messages.descricao}" filterBy="#{linha.descricao}" filterMatchMode="contains">
+			<h:outputText value="#{linha.descricao}" />
+		</p:column>
+		<p:column headerText="#{messages.data_prevista}" >
+			<h:outputText value="#{linha.dataPrevista}" converter="#{localDateConverter}"/>
+		</p:column>
+		<p:column headerText="#{messages.data_conclusao}" >
+			<h:outputText value="#{linha.dataConclusao}" converter="#{localDateConverter}"/>
+		</p:column>
+		
+	</p:dataTable>
+
+</ui:composition>

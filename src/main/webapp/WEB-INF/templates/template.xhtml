@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	>
+<h:head>
+	<title>Seguros</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+	<h:outputStylesheet name="css/screen.css" />
+	<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/jquery.maskedinput.js"></script>
+	<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/funcoes.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){
+			 
+			upperText(".up");
+			
+			jQuery(".campoTelefone").focus(
+				function () {
+					$(this).mask("(99) 9999-9999?9"); 
+				}
+			);
+			
+			jQuery(".ui-dialog").click(
+				function () {
+					$(".ui-overlay-visible").css({"backgroundColor": "black", "color": "white"}); 
+					$(".background").css({"backgroundColor": "white"}); 
+				}
+			);
+			
+			jQuery(".campoTelefone").focusout(
+				function () {
+					var phone, element;
+					element = $(this);
+					element.unmask();
+					phone = element.val().replace(/\D/g, '');
+					if (phone.length > 10) {
+						element.mask("(99) 99999-999?9"); 
+					} else { 
+						element.mask("(99) 9999-9999?9"); 
+					} 
+				}
+			);
+			
+			$(".numeral").bind("keyup blur focus", function(e) {
+	            e.preventDefault();
+	            var expre = /[^\d]/g;
+	            $(this).val($(this).val().replace(expre,''));
+	       });
+			
+			$(".codigo").bind("keyup blur focus", function(e) {
+	            e.preventDefault();
+	            var expre = /[\s]/g;
+	            $(this).val($(this).val().replace(expre,''));
+	       });
+			
+			upperText(".codigo");
+			
+			// Funcao que faz o texto ficar em uppercase  
+		    function upperText(clazz) {  
+		        // Para tratar o colar  
+		        jQuery(clazz).bind('paste', function(e) {  
+		            var el = jQuery(this);  
+		            setTimeout(function() {  
+		                var text = jQuery(el).val();  
+		                el.val(text.toUpperCase());  
+		            }, 100);  
+		        });  
+		  
+		        // Para tratar quando é digitado  
+		        jQuery(clazz).keypress(function() {  
+		            var el = jQuery(this);  
+		            setTimeout(function() {  
+		                var text = jQuery(el).val();  
+		                el.val(text.toUpperCase());  
+		            }, 100);  
+		        });  
+		    }
+			
+		});
+	</script>
+</h:head>
+<h:body id="body" >
+
+	<h:panelGroup id="page" >
+		<h:panelGroup id="header" >
+			<div>
+				<br/>
+				<h:form>
+					<h:commandLink value="#{usuarioMB.nomeUsuario}" action="#{usuarioMB.inicializar}" style="color: black;"/>
+					<h:outputText value="#{messages.divisor}" style="color: black;"/>
+					<h:commandLink value="#{messages.home}" action="#{usuarioMB.entrarHome}" style="color: black;"/>
+					<h:outputText value="#{messages.divisor}" style="color: black;"/>
+					<a href="seguros/j_spring_security_logout" style="color: black;">#{messages.sair}</a>
+				</h:form>
+			</div>		
+			<div style="align:center;">
+				<h1><h:outputText style="color: black;" value="#{messages.tituloCaderneta}" rendered="#{usuarioMB.aplicacaoCaderneta}"/>
+				<h:outputText value="#{messages.tituloJobs}" rendered="#{usuarioMB.aplicacaoJobs}"/>
+				<h:outputText value="#{messages.tituloHome}" rendered="#{usuarioMB.home}"/></h1>
+			</div>
+		</h:panelGroup>
+		
+		<h:form>
+			<h:panelGroup rendered="#{usuarioMB.aplicacaoCaderneta}" >
+				<p:menubar>
+					<p:submenu label="#{messages.menu_cadastros}" rendered="#{!usuarioMB.usuario.COORDENADOR}">
+						<p:menuitem value="#{messages.menu_segurado}" action="#{professoresMB.inicializar}" ajax="false"/>
+					</p:submenu>
+				</p:menubar>
+			</h:panelGroup>
+
+			<h:panelGroup rendered="#{usuarioMB.aplicacaoJobs}">
+				<p:menubar>
+					<p:submenu label="#{messages.menu_job}" rendered="#{!usuarioMB.usuario.COORDENADOR}">
+						<p:menuitem value="#{messages.menu_manter_job}" action="#{jobMB.inicializar}" ajax="false" />
+						<p:menuitem value="#{messages.menu_consultar_job}" action="#{jobsAgrupadosMB.inicializar}" ajax="false" />
+					</p:submenu>
+
+					<p:submenu label="#{messages.menu_job}" rendered="#{usuarioMB.usuario.COORDENADOR}">
+						<p:menuitem value="#{messages.menu_concluir_job}" action="#{concluirJobMB.inicializar}" ajax="false" />
+					</p:submenu>
+					
+					<p:submenu label="#{messages.menu_relatorios}">
+						<p:menuitem value="#{messages.dashboard}" action="#{relatorioJobsMB.inicializar}" ajax="false"/>
+					</p:submenu>
+				</p:menubar>
+			</h:panelGroup>
+		</h:form>
+
+		<h:panelGroup>
+			<h:panelGroup>
+				<ui:insert name="content">Main Content</ui:insert>
+			</h:panelGroup>
+		</h:panelGroup>
+
+		<!-- FOOTER -->
+		<h:panelGroup id="footer" layout="block">
+			#{messages.footerText}
+			<br />
+		</h:panelGroup>
+	</h:panelGroup>
+
+</h:body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_cadernetas}" /></h1>
+
+		<h:form id="cadernetasForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{cadernetasMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- INSERIR, ALTERAR -->
+			<p:panel rendered="#{cadernetasMB.operacaoInserir or cadernetasMB.operacaoAlterar}">
+				
+				<!-- Cadastro Caderneta  -->
+				<h:panelGroup rendered="#{cadernetasMB.operacaoCadastrar}">
+					<ui:include src="inserirCaderneta.xhtml"/>
+				</h:panelGroup>
+				
+				<!-- Registrar Devolução Professor  -->
+				<h:panelGroup rendered="#{cadernetasMB.operacaoRegistrarDevolucaoProfessor}">
+					<ui:include src="registrarDevolucaoCadernetaProfessor.xhtml"/>
+				</h:panelGroup>
+				
+				<!-- Registrar Retirada Coordenador  -->
+				<h:panelGroup rendered="#{cadernetasMB.operacaoRegistrarRetiradaCoordenador}">
+					<ui:include src="registrarRetiradaCadernetaCoordenador.xhtml"/>
+				</h:panelGroup>
+				
+				<!-- Registrar Devolução Coordenador  -->
+				<h:panelGroup rendered="#{cadernetasMB.operacaoRegistrarDevolucaoCoordenador}">
+					<ui:include src="registrarDevolucaoCadernetaCoordenador.xhtml"/>
+				</h:panelGroup>
+				
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{cadernetasMB.exibirCamposInclusao}"
+					rendered="#{cadernetasMB.operacaoListar and cadernetasMB.operacaoCadastrar}"/>
+
+				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{cadernetasMB.salvar}"
+					rendered="#{cadernetasMB.operacaoInserir and cadernetasMB.operacaoCadastrar}"/>
+
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{cadernetasMB.salvar}"
+					rendered="#{cadernetasMB.operacaoAlterar and cadernetasMB.operacaoCadastrar}"/>
+					
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{cadernetasMB.registrarDevolucaoProfessor}"
+					rendered="#{cadernetasMB.operacaoAlterar and cadernetasMB.operacaoRegistrarDevolucaoProfessor}"/>
+					
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{cadernetasMB.registrarRetiradaCoordenador}"
+					rendered="#{cadernetasMB.operacaoAlterar and cadernetasMB.operacaoRegistrarRetiradaCoordenador}"/>
+					
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{cadernetasMB.registrarDevolucaoCoordenador}"
+					rendered="#{cadernetasMB.operacaoAlterar and cadernetasMB.operacaoRegistrarDevolucaoCoordenador}"/>
+
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{cadernetasMB.excluir}"
+					rendered="#{cadernetasMB.operacaoExcluir}"/>
+					
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{cadernetasMB.exibirCamposExclusao}"
+					rendered="#{cadernetasMB.podeExcluir and cadernetasMB.operacaoCadastrar}"/>	
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{cadernetasMB.inicializar}" immediate="true"
+					rendered="#{(cadernetasMB.operacaoInserir or cadernetasMB.operacaoAlterar or cadernetasMB.operacaoExcluir) and cadernetasMB.operacaoCadastrar}"/>
+					
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{cadernetasMB.inicializarDevolucaoProfessor}" immediate="true"
+					rendered="#{(cadernetasMB.operacaoInserir or cadernetasMB.operacaoAlterar) and cadernetasMB.operacaoRegistrarDevolucaoProfessor}"/>
+					
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{cadernetasMB.inicializarRetiradaCoordenador}" immediate="true"
+					rendered="#{(cadernetasMB.operacaoInserir or cadernetasMB.operacaoAlterar) and cadernetasMB.operacaoRegistrarRetiradaCoordenador}"/>
+					
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{cadernetasMB.inicializarDevolucaoCoordenador}" immediate="true"
+					rendered="#{(cadernetasMB.operacaoInserir or cadernetasMB.operacaoAlterar) and cadernetasMB.operacaoRegistrarDevolucaoCoordenador}"/>
+					
+			</h:panelGroup>
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel rendered="#{cadernetasMB.operacaoListar}">
+				<ui:include src="listarCadernetas.xhtml" />
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

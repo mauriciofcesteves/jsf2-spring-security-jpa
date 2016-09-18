@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_job}" /></h1>
+
+		<h:form id="profForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{concluirJobMB.totalMensagens > 0}">
+				<ui:include src="../../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<p:panel rendered="#{concluirJobMB.operacaoAlterar}">
+				<ui:include src="editarConcluirJob.xhtml" />
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_concluir_job}" ajax="false" action="#{concluirJobMB.salvar}"
+					rendered="#{concluirJobMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{concluirJobMB.inicializar}" immediate="true"
+					rendered="#{concluirJobMB.operacaoInserir or concluirJobMB.operacaoAlterar or concluirJobMB.operacaoExcluir}"/>
+			</h:panelGroup>
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel rendered="#{concluirJobMB.operacaoListar}">
+				<ui:include src="listarConcluirJob.xhtml" />
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

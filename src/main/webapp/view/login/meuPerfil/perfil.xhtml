@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_perfil}" /></h1>
+
+		<h:form id="perfilForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{usuarioMB.totalMensagens > 0}">
+				<ui:include src="../../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- CONSULTAR -->
+			<p:panel rendered="#{usuarioMB.operacaoConsultar}">
+				<ui:include src="meuPerfil.xhtml" />
+			</p:panel>
+			
+			<!-- ALTERAR SENHA -->
+			<p:panel rendered="#{usuarioMB.operacaoAlterar}">
+				<ui:include src="alterarSenha.xhtml" />
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{usuarioMB.salvar}" rendered="#{usuarioMB.operacaoInserir}"/>
+				
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{usuarioMB.salvarSenha}"  rendered="#{usuarioMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{usuarioMB.inicializar}" immediate="true" rendered="#{usuarioMB.operacaoAlterar}"/>
+				
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{usuarioMB.exibirPaginaInicial}" immediate="true" rendered="#{usuarioMB.operacaoConsultar}"/>
+			</h:panelGroup>
+			<br />
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_usuarios}" /></h1>
+
+		<h:form id="usuariosForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{manterUsuariosMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- INSERIR, ALTERAR -->
+			<p:panel rendered="#{manterUsuariosMB.operacaoInserir or manterUsuariosMB.operacaoAlterar}">
+				<ui:include src="editarUsuario.xhtml" />
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{manterUsuariosMB.exibirCamposInclusao}"
+					rendered="#{manterUsuariosMB.operacaoListar}"/>
+
+				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{manterUsuariosMB.salvar}"
+					rendered="#{manterUsuariosMB.operacaoInserir}"/>
+
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{manterUsuariosMB.salvar}"
+					rendered="#{manterUsuariosMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{manterUsuariosMB.excluir}"
+					rendered="#{manterUsuariosMB.operacaoExcluir}"/>
+					
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{manterUsuariosMB.exibirCamposExclusao}"
+					rendered="#{manterUsuariosMB.podeExcluir}"/>	
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{manterUsuariosMB.inicializar}" immediate="true"
+					rendered="#{manterUsuariosMB.operacaoInserir or manterUsuariosMB.operacaoAlterar or manterUsuariosMB.operacaoExcluir}"/>
+			</h:panelGroup>
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel rendered="#{manterUsuariosMB.operacaoListar}">
+				<ui:include src="listarUsuarios.xhtml" />
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

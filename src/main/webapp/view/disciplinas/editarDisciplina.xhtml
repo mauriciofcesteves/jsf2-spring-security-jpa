@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	>
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.codigo} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{disciplinasMB.disciplina.codigo}" styleClass="codigo" maxlength="15" size="15" visualize="#{disciplinasMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.nome} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{disciplinasMB.disciplina.nome}" styleClass="up" maxlength="50" size="50"  visualize="#{disciplinasMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+	</table>
+	
+</ui:composition>

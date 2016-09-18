@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_coordenadores}" /></h1>
+
+		<h:form id="coordForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{coordenadoresMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- INSERIR, ALTERAR -->
+			<p:panel rendered="#{coordenadoresMB.operacaoInserir or coordenadoresMB.operacaoAlterar}">
+				<ui:include src="editarCoordenador.xhtml" />
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{coordenadoresMB.exibirCamposInclusao}"
+					rendered="#{coordenadoresMB.operacaoListar}"/>
+
+				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{coordenadoresMB.salvar}"
+					rendered="#{coordenadoresMB.operacaoInserir}"/>
+
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{coordenadoresMB.salvar}"
+					rendered="#{coordenadoresMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{coordenadoresMB.excluir}"
+					rendered="#{coordenadoresMB.operacaoExcluir}"/>
+					
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{coordenadoresMB.exibirCamposExclusao}"
+					rendered="#{coordenadoresMB.podeExcluir}"/>	
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{coordenadoresMB.inicializar}" immediate="true"
+					rendered="#{coordenadoresMB.operacaoInserir or coordenadoresMB.operacaoAlterar or coordenadoresMB.operacaoExcluir}"/>
+			</h:panelGroup>
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel rendered="#{coordenadoresMB.operacaoListar}">
+				<ui:include src="listarCoordenadores.xhtml" />
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

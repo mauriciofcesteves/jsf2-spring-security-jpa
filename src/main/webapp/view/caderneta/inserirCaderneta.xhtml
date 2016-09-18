@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente">
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.protocolo}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.protocolo}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_retirada_professor} *:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{cadernetasMB.caderneta.dataRetiradaProfessor}" visualize="#{cadernetasMB.operacaoAlterar}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.curso} *:</strong>
+			</td>
+			<td>
+				<h:selectOneMenu value="#{cadernetasMB.caderneta.curso}" converter="#{cursoConverter}" disabled="#{cadernetasMB.operacaoAlterar or !cadernetasMB.caderneta.cadernetaComProfessor}">
+					<f:selectItem itemValue="" itemLabel="Selecione"/>
+					<f:selectItems value="#{cadernetasMB.cursos}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
+					 <p:ajax update="coordenadoresInputText:coordenadoresInputText_text, disciplinasComboBox" listener="#{cadernetasMB.cursoSelecionado}" />  
+				</h:selectOneMenu>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.coordenador} *:</strong>
+			</td>
+			<td>
+				<component:inputText id="coordenadoresInputText" value="#{cadernetasMB.caderneta.coordenador.nome}" visualize="true"> </component:inputText>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.professor} *:</strong>
+			</td>
+			<td>
+				<h:selectOneMenu id="professoresComboBox" value="#{cadernetasMB.caderneta.professor}" converter="#{professorConverter}" disabled="#{!cadernetasMB.caderneta.cadernetaComProfessor}">
+					<f:selectItem itemValue="" itemLabel="Selecione"/>
+					<f:selectItems value="#{cadernetasMB.professores}" var="professor" itemLabel="#{professor.nome}" itemValue="#{professor}"/>
+				</h:selectOneMenu>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+				<strong>#{messages.disciplina} *:</strong>
+			</td>
+			<td>
+				<h:selectOneMenu id="disciplinasComboBox" value="#{cadernetasMB.caderneta.disciplina}" converter="#{disciplinaConverter}" disabled="#{cadernetasMB.operacaoAlterar or !cadernetasMB.caderneta.cadernetaComProfessor}">
+					<f:selectItem itemValue="" itemLabel="Selecione"/>
+					<f:selectItems value="#{cadernetasMB.disciplinas}" var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"/>
+				</h:selectOneMenu>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.turma}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.turma}" styleClass="up" maxlength="50" size="50"  visualize="#{cadernetasMB.operacaoAlterar or !cadernetasMB.caderneta.cadernetaComProfessor}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.fim_disciplina} *:</strong>
+			</td>
+			<td>
+				<p:inputMask value="#{cadernetasMB.caderneta.dataFinalDisciplina}" visualize="#{!cadernetasMB.caderneta.cadernetaComProfessor}" mask="99/99/9999" converter="#{localDateConverter}" validator="#{localDateConverter.validarData}">
+					<p:ajax event="blur" update="dataPrevistaDevolucaoProfessor" listener="#{cadernetasMB.calcularDataPrevistaEntregaProfessor}"/>
+				</p:inputMask>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_prevista_devolucao_professor}:</strong>
+			</td>
+			<td>
+				<p:inputMask id="dataPrevistaDevolucaoProfessor" value="#{cadernetasMB.caderneta.dataPrevistaDevolucaoProfessor}" disabled="true" converter="#{localDateConverter}"/>
+			</td>
+		</tr>
+	</table>
+</ui:composition>

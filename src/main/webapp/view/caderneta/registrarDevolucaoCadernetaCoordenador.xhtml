@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente">
+	
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.protocolo}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.protocolo}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.curso}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.curso.nome}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.coordenador}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.coordenador.nome}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.professor}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.professor.nome}" visualize="true"/>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+				<strong>#{messages.disciplina}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.disciplina.nome}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.turma}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.turma}"  visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.fim_disciplina}:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{cadernetasMB.caderneta.dataFinalDisciplina}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_prevista_devolucao_coordenador}:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{cadernetasMB.caderneta.dataPrevistaDevolucaoCoordenador}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.protocolo_devolucao_coordenador}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{cadernetasMB.caderneta.protocoloDevolucaoCoordenador}" visualize="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_devolucao_coordenador} *:</strong>
+			</td>
+			<td>
+				<component:inputData value="#{cadernetasMB.caderneta.dataDevolucaoCoordenador}"/>
+			</td>
+		</tr>
+	</table>
+	<br/>
+</ui:composition>

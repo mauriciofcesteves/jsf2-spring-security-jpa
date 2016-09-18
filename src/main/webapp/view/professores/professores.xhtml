@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_segurado}" /></h1>
+
+		<h:form id="profForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{professoresMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- INSERIR, ALTERAR -->
+			<p:panel rendered="#{professoresMB.operacaoInserir or professoresMB.operacaoAlterar}">
+				<ui:include src="editarProfessor.xhtml" />
+			</p:panel>
+
+			<p:panel rendered="#{professoresMB.operacaoListar}">
+				<br/>
+				<br/>
+				<fieldset>
+					<table>
+						<tr>
+							<td>
+								<strong>#{messages.nome}:</strong>
+							</td>
+							<td>
+								<p:inputText value="#{professoresMB.nome}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>#{messages.cpf}:</strong>
+							</td>
+							<td>
+								<p:inputMask value="#{professoresMB.cpf}" mask="999.999.999-99" converter="#{cpfConverter}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>#{messages.cnpj}:</strong>
+							</td>
+							<td>
+								<p:inputMask value="#{professoresMB.cnpj}" mask="99.999.999/9999-99" converter="#{cnpjConverter}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>#{messages.placa}:</strong>
+							</td>
+							<td>
+								<p:inputMask value="#{professoresMB.placa}" mask="aaa9999" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:commandButton value="#{messages.buscar}" ajax="false" action="#{professoresMB.buscar}" />
+							</td>
+							<td>
+								<p:commandButton value="#{messages.limpar}" ajax="false" action="#{professoresMB.limpar}" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+				<br/>
+				<br/>
+			</p:panel>
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{professoresMB.exibirCamposInclusao}"
+					rendered="#{professoresMB.operacaoListar}"/>
+
+				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{professoresMB.salvar}"
+					rendered="#{professoresMB.operacaoInserir}"/>
+
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{professoresMB.salvar}"
+					rendered="#{professoresMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{professoresMB.excluir}"
+					rendered="#{professoresMB.operacaoExcluir}"/>
+					
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{professoresMB.exibirCamposExclusao}"
+					rendered="#{professoresMB.podeExcluir}"/>	
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{professoresMB.inicializar}" immediate="true"
+					rendered="#{professoresMB.operacaoInserir or professoresMB.operacaoAlterar or professoresMB.operacaoExcluir}"/>
+			</h:panelGroup>
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel rendered="#{professoresMB.operacaoListar}">
+				<ui:include src="listarProfessores.xhtml" />
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

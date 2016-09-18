@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<table>
+		<tr>
+			<td>
+				<h:outputText value="#{messages.senha} *" /> 
+			</td>
+			<td>
+				<p:password id="senha" value="#{usuarioMB.senha}" feedback="true"
+					promptLabel="#{messages.senha}" weakLabel="#{messages.senha_fraca}"
+					goodLabel="#{messages.senha_media}" strongLabel="#{messages.senha_forte}" inline="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h:outputText value="#{messages.confirmar_senha}" />
+			</td>
+			<td>
+				<p:password id="confirmacaoSenha" value="#{usuarioMB.confirmacaoSenha}"
+					promptLabel="#{messages.confirmar_senha}"/>
+			</td>
+		</tr>
+	</table>
+	
+</ui:composition>

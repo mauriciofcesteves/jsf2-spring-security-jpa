@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_disciplinas}" /></h1>
+
+		<h:form id="disciplinasForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{disciplinasMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<br />
+
+			<!-- INSERIR, ALTERAR -->
+			<p:panel rendered="#{disciplinasMB.operacaoInserir or disciplinasMB.operacaoAlterar}">
+				<ui:include src="editarDisciplina.xhtml" />
+			</p:panel>
+
+			<h:panelGroup id="botoes" style="text-align: left;">
+				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{disciplinasMB.exibirCamposInclusao}"
+					rendered="#{disciplinasMB.operacaoListar}"/>
+
+				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{disciplinasMB.salvar}"
+					rendered="#{disciplinasMB.operacaoInserir}"/>
+
+				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{disciplinasMB.salvar}"
+					rendered="#{disciplinasMB.operacaoAlterar}"/>
+
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{disciplinasMB.excluir}"
+					rendered="#{disciplinasMB.operacaoExcluir}"/>
+					
+				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{disciplinasMB.exibirCamposExclusao}"
+					rendered="#{disciplinasMB.podeExcluir}"/>	
+
+				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{disciplinasMB.inicializar}" immediate="true"
+					rendered="#{disciplinasMB.operacaoInserir or disciplinasMB.operacaoAlterar or disciplinasMB.operacaoExcluir}"/>
+			</h:panelGroup>
+			<br />
+
+			<!-- LISTAGEM -->
+			<p:panel rendered="#{disciplinasMB.operacaoListar}">
+				<ui:include src="listarDisciplinas.xhtml" />
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

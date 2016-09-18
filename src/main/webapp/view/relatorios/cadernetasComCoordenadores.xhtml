@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1><h:outputText value="#{messages.menu_relatorio_coordenador}" /></h1>
+
+		<h:form id="relatorioCoordenadoresForm">
+			<!-- MENSAGENS -->
+			<h:panelGroup id="mensagens" rendered="#{relatoriosMB.totalMensagens > 0}">
+				<ui:include src="../../mensagens.xhtml" />
+			</h:panelGroup>
+			<!-- CONSULTAR -->
+			<p:panel>
+				<table>
+					<tr>
+						<td>
+							<h:outputText value="#{messages.data_prevista_devolucao_coordenador}" />
+						</td>
+						<td>
+							<component:inputData value="#{relatoriosMB.dataPrevista}"/>
+						</td>
+					</tr>
+				</table>
+				<h:panelGroup id="botoes" style="text-align: left;">
+					<p:commandButton value="#{messages.botao_consultar}" ajax="false" action="#{relatoriosMB.consultar}" update="relatorioCoordenadoresForm:cadernetasCoordenadoresTable"/>
+				</h:panelGroup>
+			</p:panel>
+			<br/>
+			<br/>
+			<!-- LISTAGEM -->
+			<p:panel>
+				<ui:include src="listaCadernetasComCoordenadores.xhtml" />
+			</p:panel>
+			
+			<br />
+			<p:panel header="Exportar dados" style="width: 15%">
+				<center>
+					<h:commandLink action="#{relatoriosMB.download}">
+						<p:graphicImage value="#{resource['images:pdf.png']}" />
+					</h:commandLink>
+				</center>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

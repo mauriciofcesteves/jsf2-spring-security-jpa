@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente">
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.matricula} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{coordenadoresMB.coordenador.matricula}" styleClass="codigo" maxlength="15" size="15" visualize="#{coordenadoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.nome} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{coordenadoresMB.coordenador.nome}" styleClass="up" maxlength="50" size="50"  visualize="#{coordenadoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.email} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{coordenadoresMB.coordenador.email}" maxlength="100" size="50" visualize="#{coordenadoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.telefone}:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{coordenadoresMB.coordenador.telefone}" styleClass="campoTelefone" maxlength="15" size="15"  visualize="#{coordenadoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+	</table>
+	
+</ui:composition>

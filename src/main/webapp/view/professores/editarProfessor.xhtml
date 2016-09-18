@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:component="http://java.sun.com/jsf/composite/componente"
+	>
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.cpf} :</strong>
+			</td>
+			<td>
+				<p:inputMask value="#{professoresMB.professor.cpf}" mask="999.999.999-99" converter="#{cpfConverter}" disabled="#{professoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.cnpj} :</strong>
+			</td>
+			<td>
+				<p:inputMask value="#{professoresMB.professor.cnpj}" mask="99.999.999/9999-99" converter="#{cnpjConverter}" disabled="#{professoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.nome} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{professoresMB.professor.nome}" styleClass="up" maxlength="40" size="40"  visualize="#{professoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.seguradora}: *</strong>
+			</td>
+			<td>
+				<component:inputText value="#{professoresMB.professor.seguradora}" maxlength="40" size="40"  visualize="#{professoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.placa}:</strong>
+			</td>
+			<td>
+				<p:inputMask value="#{professoresMB.professor.placa}" mask="aaa9999" disabled="#{professoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_vigencia_inicio} :</strong>
+			</td>
+			<td>
+				<p:inputMask value="#{professoresMB.professor.vigenciaInicio}" mask="99/99/9999" converter="#{localDateConverter}" disabled="#{professoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.data_vigencia_fim}: </strong>
+			</td>
+			<td>
+				<p:inputMask value="#{professoresMB.professor.vigenciaFim}" mask="99/99/9999" converter="#{localDateConverter}" disabled="#{professoresMB.operacaoExcluir}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>#{messages.observacao}: </strong>
+			</td>
+			<td>
+				<p:inputTextarea value="#{professoresMB.professor.observacao}" disabled="#{professoresMB.operacaoExcluir}" maxlength="100" autoResize="true"/>
+			</td>
+		</tr>
+	</table>
+	
+</ui:composition>

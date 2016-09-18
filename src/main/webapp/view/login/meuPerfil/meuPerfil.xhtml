@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://java.sun.com/jsf/composite/componente">
+
+	<table>
+		<tr>
+			<td>
+				<strong>#{messages.nome} *:</strong>
+			</td>
+			<td>
+				<component:inputText value="#{usuarioMB.usuario.nome}" styleClass="up" maxlength="50" size="50"/>
+			</td>
+			<td colspan="2">
+				<h:commandLink value="#{messages.botao_alterar_senha}" action="#{usuarioMB.exibirCamposAlteracao}"/>
+			</td>
+		</tr>
+	</table>
+	
+</ui:composition>
