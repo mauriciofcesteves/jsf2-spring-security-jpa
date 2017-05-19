@@ -12,6 +12,12 @@
 	<h:outputStylesheet name="css/screen.css" />
 	<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/jquery.maskedinput.js"></script>
 	<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/funcoes.js"></script>
+	
+	<!-- Bootstrap -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/bootstrap.min.js"></script>
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	
 	<script type="text/javascript">
 		jQuery(function($){
 			 
@@ -85,6 +91,25 @@
 <h:body id="body" >
 
 	<h:panelGroup id="page" >
+		<h:form>
+			<div id="header" class="navbar navbar-inverse navbar-fixed-top">
+				<a class="navbar-brand" href="http://45.55.248.215:8080/seguros/view/home.jsf">Segurados</a>
+				<ul class="nav navbar-nav">
+	              <li class="active"><h:commandLink action="#{professoresMB.inicializar}" value="Visualizar Clientes" /></li>
+	              
+	              
+					<li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Administrar Conta <span class="caret"></span></a>
+	                <ul class="dropdown-menu">
+	                  <li><h:commandLink action="#{usuarioMB.inicializar}" value="Trocar Senha" /></li>
+	                  <li><a href="seguros/j_spring_security_logout">Sair</a></li>
+	                </ul>
+	              </li>
+	            </ul>			
+			</div>
+		</h:form>
+		
+		<ui:remove>
 		<h:panelGroup id="header" >
 			<div>
 				<br/>
@@ -102,6 +127,7 @@
 				<h:outputText value="#{messages.tituloHome}" rendered="#{usuarioMB.home}"/></h1>
 			</div>
 		</h:panelGroup>
+		</ui:remove>
 		
 		<h:form>
 			<h:panelGroup rendered="#{usuarioMB.aplicacaoCaderneta}" >
@@ -136,11 +162,6 @@
 			</h:panelGroup>
 		</h:panelGroup>
 
-		<!-- FOOTER -->
-		<h:panelGroup id="footer" layout="block">
-			#{messages.footerText}
-			<br />
-		</h:panelGroup>
 	</h:panelGroup>
 
 </h:body>

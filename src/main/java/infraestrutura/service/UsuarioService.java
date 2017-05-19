@@ -14,10 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMessages;
-
-import sun.security.jgss.spi.MechanismFactory;
-
 @Component
 public class UsuarioService extends GenericService<Usuario> {
 

@@ -41,12 +41,20 @@
 		-->
 	</security:authentication-manager>
 
-	<!-- LOCALHOST -->
+	<!-- LOCALHOST 
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
-		<beans:property name="url" value="jdbc:postgresql://localhost:5433/seguros" />
+		<beans:property name="url" value="jdbc:postgresql://localhost:5432/seguros-local" />
 		<beans:property name="driverClassName" value="org.postgresql.Driver" />
 		<beans:property name="username" value="postgres" />
 		<beans:property name="password" value="admin" />
+	</beans:bean>
+	-->
+	<!--  --> 
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+		<beans:property name="url" value="jdbc:postgresql://localhost:5432/seguros" />
+		<beans:property name="driverClassName" value="org.postgresql.Driver" />
+		<beans:property name="username" value="postgres" />
+		<beans:property name="password" value="seteves00" />
 	</beans:bean>
 	
 	<!--

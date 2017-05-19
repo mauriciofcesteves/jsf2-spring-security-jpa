@@ -5,26 +5,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<table>
-		<tr>
-			<td>
-				<h:outputText value="#{messages.senha} *" /> 
-			</td>
-			<td>
 				<p:password id="senha" value="#{usuarioMB.senha}" feedback="true"
+					styleClass="form-control" placeholder="Senha"
 					promptLabel="#{messages.senha}" weakLabel="#{messages.senha_fraca}"
 					goodLabel="#{messages.senha_media}" strongLabel="#{messages.senha_forte}" inline="true"/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<h:outputText value="#{messages.confirmar_senha}" />
-			</td>
-			<td>
+
 				<p:password id="confirmacaoSenha" value="#{usuarioMB.confirmacaoSenha}"
-					promptLabel="#{messages.confirmar_senha}"/>
-			</td>
-		</tr>
-	</table>
+					promptLabel="#{messages.confirmar_senha}" styleClass="form-control" placeholder="Confirmar Senha"/>
 	
 </ui:composition>

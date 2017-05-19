@@ -6,7 +6,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
-		<h1><h:outputText value="#{messages.menu_segurado}" /></h1>
+		<br/>
+		<br/>
+		<h2 class="form-signin-heading">
+			<h:outputText value="Segurados" />
+		</h2>
 
 		<h:form id="profForm">
 			<!-- MENSAGENS -->
@@ -21,73 +25,42 @@
 			</p:panel>
 
 			<p:panel rendered="#{professoresMB.operacaoListar}">
-				<br/>
-				<br/>
-				<fieldset>
-					<table>
-						<tr>
-							<td>
-								<strong>#{messages.nome}:</strong>
-							</td>
-							<td>
-								<p:inputText value="#{professoresMB.nome}" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<strong>#{messages.cpf}:</strong>
-							</td>
-							<td>
-								<p:inputMask value="#{professoresMB.cpf}" mask="999.999.999-99" converter="#{cpfConverter}" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<strong>#{messages.cnpj}:</strong>
-							</td>
-							<td>
-								<p:inputMask value="#{professoresMB.cnpj}" mask="99.999.999/9999-99" converter="#{cnpjConverter}" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<strong>#{messages.placa}:</strong>
-							</td>
-							<td>
-								<p:inputMask value="#{professoresMB.placa}" mask="aaa9999" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p:commandButton value="#{messages.buscar}" ajax="false" action="#{professoresMB.buscar}" />
-							</td>
-							<td>
-								<p:commandButton value="#{messages.limpar}" ajax="false" action="#{professoresMB.limpar}" />
-							</td>
-						</tr>
-					</table>
-				</fieldset>
-				<br/>
-				<br/>
+			<div class="panel panel-primary">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">Filtro</h3>
+	            </div>
+	            <div class="panel-body">
+	            	
+					<p:inputText value="#{professoresMB.nome}" styleClass="form-control" placeholder="Nome"/>
+					<p:inputMask value="#{professoresMB.cpf}" mask="999.999.999-99" converter="#{cpfConverter}" styleClass="form-control" placeholder="CPF"/>
+					<p:inputMask value="#{professoresMB.cnpj}" mask="99.999.999/9999-99" converter="#{cnpjConverter}" styleClass="form-control" placeholder="CNPJ"/>
+					<p:inputMask value="#{professoresMB.placa}" mask="aaa9999" styleClass="form-control" placeholder="Placa do Carro"/>
+					<br/>
+					<h:commandButton value="#{messages.buscar}" action="#{professoresMB.buscar}" styleClass="btn btn-lg btn-primary" />
+					<h:commandButton value="#{messages.limpar}" action="#{professoresMB.limpar}" styleClass="btn btn-lg btn-warning"/>
+					
+	            </div>
+            </div>
 			</p:panel>
 			<h:panelGroup id="botoes" style="text-align: left;">
-				<p:commandButton value="#{messages.botao_novo}" ajax="false" action="#{professoresMB.exibirCamposInclusao}"
-					rendered="#{professoresMB.operacaoListar}"/>
+				<p:commandButton value="Adicionar Novo Cliente" ajax="false" action="#{professoresMB.exibirCamposInclusao}"
+					rendered="#{professoresMB.operacaoListar}" styleClass="btn btn-lg btn-success form-control"/>
 
 				<p:commandButton value="#{messages.botao_incluir}" ajax="false" action="#{professoresMB.salvar}"
-					rendered="#{professoresMB.operacaoInserir}"/>
+					rendered="#{professoresMB.operacaoInserir}" styleClass="btn btn-lg btn-success"/>
 
 				<p:commandButton value="#{messages.botao_salvar}" ajax="false" action="#{professoresMB.salvar}"
-					rendered="#{professoresMB.operacaoAlterar}"/>
+					rendered="#{professoresMB.operacaoAlterar}" styleClass="btn btn-lg btn-success"/>
 
 				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{professoresMB.excluir}"
-					rendered="#{professoresMB.operacaoExcluir}"/>
+					rendered="#{professoresMB.operacaoExcluir}" styleClass="btn btn-lg btn-danger"/>
 					
-				<p:commandButton value="#{messages.botao_excluir}" ajax="false" action="#{professoresMB.exibirCamposExclusao}"
-					rendered="#{professoresMB.podeExcluir}"/>	
+				<p:commandButton value="Excluir Cliente" ajax="false" action="#{professoresMB.exibirCamposExclusao}"
+					rendered="#{professoresMB.podeExcluir}" styleClass="btn btn-lg btn-danger form-control"/>	
 
 				<p:commandButton value="#{messages.botao_cancelar}" ajax="false" action="#{professoresMB.inicializar}" immediate="true"
-					rendered="#{professoresMB.operacaoInserir or professoresMB.operacaoAlterar or professoresMB.operacaoExcluir}"/>
+					rendered="#{professoresMB.operacaoInserir or professoresMB.operacaoAlterar or professoresMB.operacaoExcluir}"
+					styleClass="btn btn-lg btn-info"/>
 			</h:panelGroup>
 			<br />
 

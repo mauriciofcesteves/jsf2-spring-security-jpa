@@ -6,18 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:component="http://java.sun.com/jsf/composite/componente">
 
-	<table>
-		<tr>
-			<td>
-				<strong>#{messages.nome} *:</strong>
-			</td>
-			<td>
-				<component:inputText value="#{usuarioMB.usuario.nome}" styleClass="up" maxlength="50" size="50"/>
-			</td>
-			<td colspan="2">
-				<h:commandLink value="#{messages.botao_alterar_senha}" action="#{usuarioMB.exibirCamposAlteracao}"/>
-			</td>
-		</tr>
-	</table>
-	
+		<p:inputText value="#{usuarioMB.usuario.nome}" maxlength="50" size="50" styleClass="up form-control" placeholder="Nome"/>
+		<br/>
+		<h:commandButton value="#{messages.botao_alterar_senha}" action="#{usuarioMB.exibirCamposAlteracao}" styleClass="btn btn-lg btn-danger form-control"/>	
 </ui:composition>
